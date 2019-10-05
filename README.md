@@ -97,13 +97,26 @@ folder name
     * Export all of the tables of both tablespaces using the dba user through Sql developer. **_More info will be provided later_**
 7. Backups
     - Create two separate backups, one for the tablespace **BET_ITM** and another one for the tablespace **BET_AUDITING**. Take a screenshot of the console where the list of backups are shown.
-7. Read the following articles and make a small talk or presentation talking about each of them:
+9. Data:
+    You should generate some CSV files in order to import to the tables (These files are going to be persisted into the repository):
+    - Users: At least 500 users with its columns
+    - Each user must have the limits for deposits
+    - Matches: At least 100 matches, each match should have the quotes which will be generated randomly.
+    - Bets: At least 1000 bets
+    - Deposits: Each user should have at least one record describing how they get the money. 
+10. Read the following articles and make a small talk or presentation talking about each of them:
     * [Top Redis Use Cases By Core Data Structure Types](http://highscalability.com/blog/2019/9/3/top-redis-use-cases-by-core-data-structure-types.html). For this article you should talk about the differences between Redis and other sql databases, preferred clients to use Redis, different types of data and their uses and companies which rely on Redis.
     * [Fallas graves en la seguridad de tarjetas de crédito y credenciales en Rappi](https://medium.com/advisability/tarjetas-credito-rappi-714e75166f7a). For this article you should talk about why Rappi was having issues with credit card's users information, how to store data of credit cards effectively, talk about what PCI DSS is and how you should handle information of credit cards; and finally lessons learned for your future projects and what you shouldn't do in order to protect your users.
     * [10 Reasons To Consider A Multi-Model Database](http://highscalability.com/blog/2015/3/4/10-reasons-to-consider-a-multi-model-database.html)
     * [Maybe Normalizing Isn't Normal
 ](http://highscalability.com/blog/2015/3/4/10-reasons-to-consider-a-multi-model-database.html)
     * [Who Needs Stored Procedures, Anyways?](https://blog.codinghorror.com/who-needs-stored-procedures-anyways/)
+11. Video:
+    
+    - Hacer un video en el cual se comparta la pantalla y se explique punto por punto lo que hicieron para resolver cada problema, ejecutarlos y hacer demostración de cada función, procedimiento y demás. En el punto de los artículo simplemente deben hablar sobre el mismo teniendo en cuenta las preguntas planteadas.
+    - Todos los integrantes del equipo deberán hablar
+    - NO USAR licencias de prueba o versiones "trial" ya que es ilegal, tener en cuenta la calidad del sonido y de video al momento de hacer el video, todos estos factores son tenidos en cuenta durante la calificación de mismo.
+    - El software recomendado para hacer la grabación de los videos es https://obsproject.com/
 
 ### Problema
 
@@ -112,6 +125,8 @@ Casa de Apuestas "Bet ITM"
 La casa de apuestas ha decidido poner en marcha la construcción de un producto a la altura de las exigencias del mercado, por esta razón usted y su equipo han sido encargados de diseñar la base de datos según las reglas de negocio, teniendo en cuenta dos premisas fundamentales. 1. El rendimiento de los queries. 2. La seguridad de los datos que son sensibles.
 
 Inicialmente se exige validar que todas las transacciones sean hechas por personas mayores de edad identificadas con cédula de ciudadanía expedida en Colombia, todas las transacciones van a depender de los usuarios; el equipo de diseño ha comenzado a elaborar los bosquejos de la información necesaria a ser guardada y con base a las imágenes proveídas usted deberá guardar todo lo que se encuentre allí.
+
+_**Importante:** La mesa directiva ha decidido implementar la estrategia de eliminación llamada "Soft deletion", es decir, ningún registro se eliminará de ninguna tabla, es decir, todas las tablas deberán tener una columna que identifique si el registro se encuentra "eliminado" o "disponible" [Soft deletion](https://www.quora.com/What-is-the-difference-between-soft-delete-and-hard-delete-in-SQL-Informatica-power-center-and-Informatica-cloud)_
 
 1. #### Usuarios
 
@@ -146,4 +161,51 @@ Inicialmente se exige validar que todas las transacciones sean hechas por person
     - Si yo apuesto "NO" y salgo ganador, la cuota es 1.6. Si yo apuesto 20.000 recibiré 32.000
     
     ![Ejemplo](images/apuesta_ejemplo_01.png)![Ejemplo](images/apuesta_ejemplo_02.png)
+
+    Nota: El sistema deberá soportar las apuestas descritas en la imagen, en nuestro caso y para simplificar la estructuración, solamente habrán apuestas de fútbol y todos los partidos tendrán las mismas apuestas.
+
+4. ### Depósitos
     
+    El sistema soportará diversos medios de pago, cada medio de pago tiene unas condiciones descritas así:
+
+    ![medios_pago](images/Payment_Selection.png).
+
+    * **Visa - Mastercard:** Mínimo: 20.000 COP - Máximo: 36.000.000 COP
+    * **Baloto:** Mínimo: 18.000 COP - Máximo: 100.000.000 COP
+    * **PSE:** Mínimo: 18.000 COP - Máximo: Sin límite
+    * **Punto Red:** Mínimo: 1000 COP - Máximo: 1.000.000 COP
+    * **Efecty:** Mínimo: 5.000 COP - Máximo: 100.000.000 COP
+    * **Dimonex:** Mínimo: 5.000 COP - Máximo: 3.000.000 COP
+
+    En el sistema deberá quedar registro de todos los depósitos que hagan los usuarios, deberá quedar registrado la fecha exacta (timestamp) en la que se realizó la transacción, el medio de pago, también deberá tener unos estados (PENDIENTE, EN PROCESO, RECHAZADA, EXITOSO) (Estos estados deberán tener validación por constraint).
+
+    El sistema deberá soportar el saldo disponible de cada usuario conforme vayan realizándose depósitos.
+
+5. ### Retiros
+    
+    El sistema deberá guardar las solicitudes de retiro que hagan los usuarios dependiendo de las ganancias, para esto se guardará la fecha exacta en la cual se hace la solicitud (timestamp), la fecha de desembolso, el banco y el número de cuenta al cual se realiza la consignación.
+
+    También deberá tener una columna para validar si el cliente cumple o no con los requisitos para que el desembolso sea aprobado.
+
+    Por motivos de seguridad, todos los clientes deben subir fotos con diversos comprobantes para evitar el fraude:
+
+    - A) Factura servicios públicos con nombre y dirección.
+    - B) Comprobante de Depósito
+    - C) Identificación con nombre y fecha de nacimiento
+    - D) Foto personal sosteniendo su documento de identificación legible.
+
+    Para cada documento se deberá guardar el tamaño del archivo, la extensión y la url donde queda almacenada la imagen.
+
+6. ### Auditoria
+    
+    En el tablespace "BET_AUDITING" deberá crearse la siguiente tabla:
+
+    | Columnas    | 
+    | ------------- |
+    | Id |
+    | Date and time |
+    | Table |
+    | record_id |
+    | action (INSERT, UPDATE, DELETE) |
+    | User |
+    | IP |

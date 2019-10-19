@@ -6,7 +6,33 @@
 | ------------- |:-------------:| -----:|
 | Adminitración de base de datos avanzada | 10% |  **Octubre/19/2019** |
 
+## Luis Alejandro Ramirez
+## Andres Felipe Estrada
+
 ---
+### Group work development
+
+1. Problem normalization and entity diagram.
+
+
+2. Table spaces creation
+```
+CREATE SMALLFILE TABLESPACE BET_ITM
+    DATAFILE '/u02/app/oracle/oradata/ORCL/BET_ITM1.DBF' SIZE 512M, '/u02/app/oracle/oradata/ORCL/BET_ITM2.DBF' SIZE 512M
+    EXTENT MANAGEMENT LOCAL AUTOALLOCATE;
+
+CREATE BIGFILE TABLESPACE BET_AUDITING
+    DATAFILE '/u02/app/oracle/oradata/ORCL/BET_AUDITING.DBF' SIZE 2G
+    EXTENT MANAGEMENT LOCAL AUTOALLOCATE;
+
+CREATE UNDO TABLESPACE UNDO_BET_ITM
+    DATAFILE '/u02/app/oracle/oradata/ORCL/BET_ITM_UNDO.DBF' SIZE 500M;
+
+ALTER SYSTEM SET UNDO_TABLESPACE = UNDO_BET_ITM;
+``
+
+---
+## Original ReadMe.
 ### Structure
 Your repo should following the structure explained below, just to be more organized:
 

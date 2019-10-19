@@ -29,7 +29,73 @@ CREATE UNDO TABLESPACE UNDO_BET_ITM
     DATAFILE '/u02/app/oracle/oradata/ORCL/BET_ITM_UNDO.DBF' SIZE 500M;
 
 ALTER SYSTEM SET UNDO_TABLESPACE = UNDO_BET_ITM;
-``
+```
+
+3. Profiles creation
+```
+CREATE  PROFILE developer LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 60
+    IDLE_TIME 30
+    FAILED_LOGIN_ATTEMPS 5
+    PASSWORD_LIFE_TIME 90;
+
+CREATE  PROFILE web_application LIMIT
+    SESSIONS_PER_USER 5
+    CONNECT_TIME UNLIMITED
+    IDLE_TIME UNLIMITED
+    FAILED_LOGIN_ATTEMPS 2
+    PASSWORD_LIFE_TIME 30;
+
+ CREATE  PROFILE dba_admin LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 30
+    IDLE_TIME UNLIMITED
+    FAILED_LOGIN_ATTEMPS 2
+    PASSWORD_LIFE_TIME 30;
+
+CREATE  PROFILE analyst LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 30
+    IDLE_TIME 5
+    FAILED_LOGIN_ATTEMPS 3
+    PASSWORD_LIFE_TIME 30
+    PASSWORD_GRACE_TIME 3;
+
+CREATE  PROFILE support_iii LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 240
+    IDLE_TIME 5
+    FAILED_LOGIN_ATTEMPS 3
+    PASSWORD_LIFE_TIME 20
+    PASSWORD_GRACE_TIME 5;
+
+CREATE  PROFILE reporter LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 90
+    IDLE_TIME 15
+    FAILED_LOGIN_ATTEMPS 4
+    PASSWORD_LIFE_TIME UNLIMITED
+    PASSWORD_GRACE_TIME 5;
+
+CREATE  PROFILE auditor LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 90
+    IDLE_TIME 15
+    FAILED_LOGIN_ATTEMPS 4
+    PASSWORD_LIFE_TIME UNLIMITED
+    PASSWORD_GRACE_TIME 5;
+```
+
+4. Roles and Privileges
+I. The PUBLIC role is a default role that every account has when it is created, it has no privileges but it has grants to specific java objects. 
+II. The DBA_SYS_PRIVS retrieves information about user privileges related to the system. The DBA_TAB_PRIVS retrieves information about user privileges to the tables. The DBA_ROLE_PRIVS retrieves information about user privileges to roles modifications.
+III. Categories privileges:
+    - SYSTEM Privileges, the right or hability to perform an action on any object of a particular type (tables, views, indexes, sequences, etc), only a user with ADMIN privilege can grant or revoke system privileges.
+    - OBJECT Privileges, the right or hability to perform a particular action on an object or access another user's object (tables, views, indexes, sequences, etc). An object owner has all object privileges for that object, and those privileges can't be revoked. The owner can grant object privileges to other database users. A user with ADMIN privilege can grant and revoke object privileges from users who do not own the objects on which the privileges are granted.
+    - PRIVILEGE Hierarchy, some privileges confer other privileges, ex. ADMIN privilege confers all other privileges. CREATE ANY TABLE system privilege confers the CREATE TABLE object privilege.
+
+5. 
 
 ---
 ## Original ReadMe.

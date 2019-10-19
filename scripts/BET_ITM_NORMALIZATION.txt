@@ -12,7 +12,7 @@ ID NAME DELETED
 Providences
 ID NAME DELETED
 
-CIties
+Cities
 ID NAME DELETED
 
 Documents

@@ -88,14 +88,79 @@ CREATE  PROFILE auditor LIMIT
 ```
 
 4. Roles and Privileges
-I. The PUBLIC role is a default role that every account has when it is created, it has no privileges but it has grants to specific java objects. 
-II. The DBA_SYS_PRIVS retrieves information about user privileges related to the system. The DBA_TAB_PRIVS retrieves information about user privileges to the tables. The DBA_ROLE_PRIVS retrieves information about user privileges to roles modifications.
-III. Categories privileges:
+- I. The PUBLIC role is a default role that every account has when it is created, it has no privileges but it has grants to specific java objects. 
+- II. The DBA_SYS_PRIVS retrieves information about user privileges related to the system. The DBA_TAB_PRIVS retrieves information about user privileges to the tables. The DBA_ROLE_PRIVS retrieves information about user privileges to roles modifications.
+- III. Categories privileges:
     - SYSTEM Privileges, the right or hability to perform an action on any object of a particular type (tables, views, indexes, sequences, etc), only a user with ADMIN privilege can grant or revoke system privileges.
     - OBJECT Privileges, the right or hability to perform a particular action on an object or access another user's object (tables, views, indexes, sequences, etc). An object owner has all object privileges for that object, and those privileges can't be revoked. The owner can grant object privileges to other database users. A user with ADMIN privilege can grant and revoke object privileges from users who do not own the objects on which the privileges are granted.
     - PRIVILEGE Hierarchy, some privileges confer other privileges, ex. ADMIN privilege confers all other privileges. CREATE ANY TABLE system privilege confers the CREATE TABLE object privilege.
 
-5. 
+5. Users
+```
+GRANT CREATE SESSION TO developer, web_application, dba_admin, analyst, support_iii, reporter, auditor;
+
+CREATE USER developer_user
+    IDENTIFIED BY developer
+    PROFILE developer
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER web_user
+    IDENTIFIED BY webpage
+    PROFILE web_application
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER dba_user
+    IDENTIFIED BY dba
+    PROFILE dba_admin
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER analyst_user
+    IDENTIFIED BY analyst
+    PROFILE analyst
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER support_user
+    IDENTIFIED BY support
+    PROFILE support_iii
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER reporter_user
+    IDENTIFIED BY reporter
+    PROFILE reporter
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER auditor_user
+    IDENTIFIED BY auditor
+    PROFILE auditor
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER backup_dba
+    IDENTIFIED BY dbabackup
+    PROFILE dba_admin
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER backup_developer
+    IDENTIFIED BY devbackup
+    PROFILE developer
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER backup_web
+    IDENTIFIED BY webbackup
+    PROFILE web_application
+    DEFAULT TABLESPACE BET_ITM;
+```
+
+6. Tables creation
+This will be in the scripts folder with the script that will include all the queries of this work.
+
+7. Backups
+
+
+9. Articles readed. Refer to numeral 10.
+
+10. Videos
+- Tables normalization and design video: 
+- Articles review and explanation: [Articles REVIEW](https://drive.google.com/open?id=1bLLFG3ieXsezDn-eNGYpWDL7mf7VmXTA)
 
 ---
 ## Original ReadMe.

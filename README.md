@@ -159,8 +159,8 @@ This will be in the scripts folder with the script that will include all the que
 8. CVS
 - Users CVS can be found in the scripts folder with the name `Bet_Users_Mock.csv`
 - Deposits Limits `Bet_Users_Deposit_Limits_Mock.csv`
-- Matches ``
-- Bets ``
+- Matches `Bet_Matches_Mock.csv`
+- Bets `Bets_Mock.csv`
 - Deposits ``
 
 

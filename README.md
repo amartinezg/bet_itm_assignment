@@ -155,13 +155,21 @@ CREATE USER backup_web
 This will be in the scripts folder with the script that will include all the queries of this work.
 
 7. Backups
+![backup1](images/backup1.jpeg)
+![backup2](images/backup2.jpeg)
+![backup3](images/backup3.jpeg)
+![backup4](images/backup4.jpeg)
+![backup5](images/backup5.jpeg)
 
 8. CVS
 - Users CVS can be found in the scripts folder with the name `Bet_Users_Mock.csv`
 - Deposits Limits `Bet_Users_Deposit_Limits_Mock.csv`
 - Matches `Bet_Matches_Mock.csv`
 - Bets `Bets_Mock.csv`
-- Deposits ``
+- Deposits `Bet_Deposits_Mock.csv`
+- Banks `Bet_Banks_Mock.csv`
+- User Bank Accounts `Bet_User_Bank_Accounts_Mock.csv`
+- User Deposits `Bet_Users_Deposits_Mock.csv`
 
 
 9. Articles readed. Refer to numeral 10.

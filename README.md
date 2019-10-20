@@ -156,11 +156,18 @@ This will be in the scripts folder with the script that will include all the que
 
 7. Backups
 
+8. CVS
+- Users CVS can be found in the scripts folder with the name `Bet_Users_Mock.csv`
+- Deposits Limits `Bet_Users_Deposit_Limits_Mock.csv`
+- Matches ``
+- Bets ``
+- Deposits ``
+
 
 9. Articles readed. Refer to numeral 10.
 
 10. Videos
-- Tables normalization and design video: 
+- Tables normalization and design video: [Tables and Diagram Explanation](https://drive.google.com/open?id=1380UvjeLm_un84PS40Kl1iYYOCfK4fF-) 
 - Articles review and explanation: [Articles REVIEW](https://drive.google.com/open?id=1bLLFG3ieXsezDn-eNGYpWDL7mf7VmXTA)
 
 ---

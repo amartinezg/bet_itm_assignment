@@ -13,7 +13,7 @@
 ### Group work development
 
 1. Problem normalization and entity diagram.
-
+![diagrama](diagrams/tables_diagram.jpeg)
 
 2. Table spaces creation
 ```

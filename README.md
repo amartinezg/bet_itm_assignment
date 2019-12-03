@@ -6,7 +6,180 @@
 | ------------- |:-------------:| -----:|
 | Adminitración de base de datos avanzada | 10% |  **Octubre/19/2019** |
 
+## Luis Alejandro Ramirez
+## Andres Felipe Estrada
+
 ---
+### Group work development
+
+1. Problem normalization and entity diagram.
+![diagrama](diagrams/tables_diagram.jpeg)
+
+2. Table spaces creation
+```
+CREATE SMALLFILE TABLESPACE BET_ITM
+    DATAFILE '/u02/app/oracle/oradata/ORCL/BET_ITM1.DBF' SIZE 512M, '/u02/app/oracle/oradata/ORCL/BET_ITM2.DBF' SIZE 512M
+    EXTENT MANAGEMENT LOCAL AUTOALLOCATE;
+
+CREATE BIGFILE TABLESPACE BET_AUDITING
+    DATAFILE '/u02/app/oracle/oradata/ORCL/BET_AUDITING.DBF' SIZE 2G
+    EXTENT MANAGEMENT LOCAL AUTOALLOCATE;
+
+CREATE UNDO TABLESPACE UNDO_BET_ITM
+    DATAFILE '/u02/app/oracle/oradata/ORCL/BET_ITM_UNDO.DBF' SIZE 500M;
+
+ALTER SYSTEM SET UNDO_TABLESPACE = UNDO_BET_ITM;
+```
+
+3. Profiles creation
+```
+CREATE  PROFILE developer LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 60
+    IDLE_TIME 30
+    FAILED_LOGIN_ATTEMPTS 5
+    PASSWORD_LIFE_TIME 90;
+   
+
+CREATE  PROFILE web_application LIMIT
+    SESSIONS_PER_USER 5
+    CONNECT_TIME UNLIMITED
+    IDLE_TIME UNLIMITED
+    FAILED_LOGIN_ATTEMPTS 2
+    PASSWORD_LIFE_TIME 30;
+
+CREATE  PROFILE dba_admin LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 30
+    IDLE_TIME UNLIMITED
+    FAILED_LOGIN_ATTEMPTS 2
+    PASSWORD_LIFE_TIME 30;
+
+CREATE  PROFILE analyst LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 30
+    IDLE_TIME 5
+    FAILED_LOGIN_ATTEMPTS 3
+    PASSWORD_LIFE_TIME 30
+    PASSWORD_GRACE_TIME 3;
+
+CREATE  PROFILE support_iii LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 240
+    IDLE_TIME 5
+    FAILED_LOGIN_ATTEMPTS 3
+    PASSWORD_LIFE_TIME 20
+    PASSWORD_GRACE_TIME 5;
+
+CREATE  PROFILE reporter LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 90
+    IDLE_TIME 15
+    FAILED_LOGIN_ATTEMPTS 4
+    PASSWORD_LIFE_TIME UNLIMITED
+    PASSWORD_GRACE_TIME 5;
+
+CREATE  PROFILE auditor LIMIT
+    SESSIONS_PER_USER 1
+    CONNECT_TIME 90
+    IDLE_TIME 15
+    FAILED_LOGIN_ATTEMPTS 4
+    PASSWORD_LIFE_TIME UNLIMITED
+    PASSWORD_GRACE_TIME 5;
+```
+
+4. Roles and Privileges
+- I. The PUBLIC role is a default role that every account has when it is created, it has no privileges but it has grants to specific java objects. 
+- II. The DBA_SYS_PRIVS retrieves information about user privileges related to the system. The DBA_TAB_PRIVS retrieves information about user privileges to the tables. The DBA_ROLE_PRIVS retrieves information about user privileges to roles modifications.
+- III. Categories privileges:
+    - SYSTEM Privileges, the right or hability to perform an action on any object of a particular type (tables, views, indexes, sequences, etc), only a user with ADMIN privilege can grant or revoke system privileges.
+    - OBJECT Privileges, the right or hability to perform a particular action on an object or access another user's object (tables, views, indexes, sequences, etc). An object owner has all object privileges for that object, and those privileges can't be revoked. The owner can grant object privileges to other database users. A user with ADMIN privilege can grant and revoke object privileges from users who do not own the objects on which the privileges are granted.
+    - PRIVILEGE Hierarchy, some privileges confer other privileges, ex. ADMIN privilege confers all other privileges. CREATE ANY TABLE system privilege confers the CREATE TABLE object privilege.
+
+5. Users
+```
+GRANT CREATE SESSION TO developer, web_application, dba_admin, analyst, support_iii, reporter, auditor;
+
+CREATE USER developer_user
+    IDENTIFIED BY developer
+    PROFILE developer
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER web_user
+    IDENTIFIED BY webpage
+    PROFILE web_application
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER dba_user
+    IDENTIFIED BY dba
+    PROFILE dba_admin
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER analyst_user
+    IDENTIFIED BY analyst
+    PROFILE analyst
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER support_user
+    IDENTIFIED BY support
+    PROFILE support_iii
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER reporter_user
+    IDENTIFIED BY reporter
+    PROFILE reporter
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER auditor_user
+    IDENTIFIED BY auditor
+    PROFILE auditor
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER backup_dba
+    IDENTIFIED BY dbabackup
+    PROFILE dba_admin
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER backup_developer
+    IDENTIFIED BY devbackup
+    PROFILE developer
+    DEFAULT TABLESPACE BET_ITM;
+
+CREATE USER backup_web
+    IDENTIFIED BY webbackup
+    PROFILE web_application
+    DEFAULT TABLESPACE BET_ITM;
+```
+
+6. Tables creation
+This will be in the scripts folder with the script that will include all the queries of this work.
+
+7. Backups
+![backup1](images/backup1.jpeg)
+![backup2](images/backup2.jpeg)
+![backup3](images/backup3.jpeg)
+![backup4](images/backup4.jpeg)
+![backup5](images/backup5.jpeg)
+
+8. CVS
+- Users CVS can be found in the scripts folder with the name `Bet_Users_Mock.csv`
+- Deposits Limits `Bet_Users_Deposit_Limits_Mock.csv`
+- Matches `Bet_Matches_Mock.csv`
+- Bets `Bets_Mock.csv`
+- Deposits `Bet_Deposits_Mock.csv`
+- Banks `Bet_Banks_Mock.csv`
+- User Bank Accounts `Bet_User_Bank_Accounts_Mock.csv`
+- User Deposits `Bet_Users_Deposits_Mock.csv`
+
+
+9. Articles readed. Refer to numeral 10.
+
+10. Videos
+- Tables normalization and design video: [Tables and Diagram Explanation](https://drive.google.com/open?id=1380UvjeLm_un84PS40Kl1iYYOCfK4fF-) 
+- Articles review and explanation: [Articles REVIEW](https://drive.google.com/open?id=1bLLFG3ieXsezDn-eNGYpWDL7mf7VmXTA)
+
+---
+## Original README.
 ### Structure
 Your repo should following the structure explained below, just to be more organized:
 

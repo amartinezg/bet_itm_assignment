@@ -1,0 +1,64 @@
+Resumen articulos:
+
+Top Redis Use Cases By Core Data Structure Types
+Redis es un systema de bases de datos NoSQL, no guarda datos en esquemas con tables filas y columnas, sino en estructuras de datos.
+En redis se soportan los strings, listas, sets, sets organizados y hashes, tambien se soportan bitmaps, hyperlogs e indexes geospatial con sentencias de redius y streams.
+- String son como los demas lenguajes, se guarda el string john en studen con 'SET "students" "john"', se obtiene el string con 'GET "student"' y se borra con 'DEL "student"'
+	Casos de uso, cache de una session, queues (listas de espera), uso y medicion de cobros.
+- Listas, se pueden insertar items en la cabeza o la cola de las listas, el comando LPUSH inserta en la cabeza y RPUSH inserta en la cola.
+	Casos de uso, redes sociales, feeds de rsss y tablas de liderazgo.
+- Sets, sirve para crear intersecciones y uniones. Se usa normalmente para realizar auditorias o ver relaciones entre multiples variables. Son rapidas, no estan organizadas pero toma el mismo tiempo agregar o remover items, no permiten llaves o valores duplicados.
+	Casos de uso, Ventas de sitios ecommerce, trackeo de direcciones ip, filtrado de contenido inapropiado.
+- Sets ordenados, son mucho mas rapidos, permiten la busqueda en el menor tiempo posible por su propiedad de ordenamiento.
+	Casos de uso, plataformas de preguntas y respuestas, tablas de posiciones de aplicaciones o juegos, servicios de agendamiento de tareas, hashing en geolocalizacion.
+- Hashes, es un mapeo entre los campos de string y los valores de un string, sirve para valores y contenedores unicos.
+	Casos de uso, perfiles de usuario, posts de usuarios, almacenar metricas multiples.
+
+Fallas graves en la seguridad de las tarjetas de credito y credenciales en Rappi
+Se hizo un ejercicio de investigacion debido a muchas quejas de cobros extranos y no esperados a los usuarios de rappi, se descubrio que en el codigo que se puede ver en las paginas web de rappi, se puede tener acceso a los tokens y credenciales de acceso para kits de facebook entre otros servicios de tarjetas de credito, al no hacer una conexion segura. La solucion de estas fallas demoro 61 dias, y afecto a una gran cantidad de usuarios. Se corrigieron la mayoria de fallos, y se mejoro la seguridad de ingreso de las tarjetas de credito, pero aun hay medidas de seguridad que se podrian implementar.
+
+10 razones para considerar multiples modelos de base de datos
+1. Consolidacion, soporta multiples tipos de datos para diferentes casos de uso, y los consolida en una plataforma.
+2. Escalamiento del performance, al estar separado en diferentes componentes de las consultas y los modelos se puede escalar independientemente segun los cambios que se necesiten.
+3. Complejidad operacional, los diferentes componetes segun la fragmentacion de ambientes es una tarea complicada.
+4. Flexibilidad, se puede mapear multiples modelos de data a un motor de almacenamiento que permita el uso de diferentes casos de uso y aplicaciones.
+5. Confiabilidad, las caidas de servidores en bases de datos multiples es muy peligroso para el negocio.
+6. Consistencia en los datos, un solo backend que spoporte multiples modelos de datos puede ya que el soporte de transacciones entre diferentes sistemas de bases de datos.
+7. Tolerancia a los fallos, tener multilples sistemas y no uno que permite modelos multiples puede causar que cualquier fallo sea catastrofico.
+8. Costo, al usarse muchas herramientas el costo se multiplica por mantenimientos, actualizaciones entre otros.
+9. Transacciones, todas las transacciones se conocen en todo momento y se almacenan consistentemente.
+10. Mejores aplicaciones, diferentes bases de datos es un problema operacional y que causa desarrollo demasiado pesado, Sin tanta logica innecesaria es mucho mejor debido a las bases de datos multi modelos.
+
+De pronto normalizar no es normal
+Disenos sencillos generan demasiadas tablas, y las consultas se vuelven un conjunto de inner joins para poder obtener los datos.
+Esto dana el perfomance del sistema, debido a la normalizacion, que vuelve muy dificil de entender y dificil de trabajar, ademas de ser mas lento.
+Solo genera diferencia con bases de datos gigantes, el perfomance no cambia mucho en tablas sencillas y un computador sencillo dara el mismo rendimiento.
+Cualquier diseno de base de datos inicial que sea simple y facil de entender es lo mejor.
+La gente normaliza porque los profesores les dijeron que debian hacerlo, deberias normalizar si los datos te lo dicen:
+	- Si tiene sentido para el equipo.
+	- Mejora el perfomance.
+	- Evita muchos duplicados ademas de problemas de sincronizacion.
+	- Permite escribir consultas mas sencillas.
+
+Nunca deberias normalizar solo por un sentido de responsabilidad. No es un polvo magico para curar todos los problemas de la base de datos.
+"Normaliza hasta que duela, desnormaliza hasta que funcione"
+
+Quien necesita procedimientos almacenados de verdad?
+Quien quiere realmente escribir procedimientos almacenados para cosas que se hacen con una simple consulta.
+1. Los procedimientos almacenados estan escritos en bases de datos con lenguajes de mucho tiempo, con muchos errores de diseno y que lenguajes mas actuales manejan de una mejor forma.
+2. No se pueden revisar en la misma interfaz de desarrollo del UI.
+3. No dan mucho feedback cuando algo sale mal.
+4. No pueden pasar objetos. Se llenan los queries de parametros que no dicen realmente cuando fallan donde esta el problema.
+5. Los procedimientos almacenados esconden la logica de negocio.
+
+Generalmente se dice que se usan los procedimientos para:
+- Mejor perfomance por reuso de los queries.
+- Se pueden asegurar individualmente en la base de datos.
+- Se puede dar permiso de ejecucion de procedimientos almacenados sin dar permiso a las tablas.
+- Mas facil mantenimiento.
+- Un nivel de abstraccion de la base de datos.
+- Pueden reducir el trafico de la red.
+
+Para bases de datos modernas y escenarios de uso en el mundo real, los procedimientos almacenados tienen muchos fallos y muy poco beneficio practico real.
+Solo deberia ser usado en las situaciones de perfomance mas critico. Se puede hacer una buena base de datos con SQL parametrizado y un solo ambiente de desarrollo coherente.
+
